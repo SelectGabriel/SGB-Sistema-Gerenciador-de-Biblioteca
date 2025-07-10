@@ -1,17 +1,17 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-#define mensagemLocalAtualLivros "Você está no gerenciamento de Livros \n";
-#define localAtualEmprestimos "Você está no gerenciamento de Emprestimos \n";
-#define localAtualUsuarios "Você está no gerenciamento de usuários \n";
-#define mensagemAdeus "até logo! \n"
+const string MENSAGEM_LOCAL_ATUAL_LIVROS = "Você está no gerenciamento de Livros \n";
+const string MENSAGEM_LOCAL_ATUAL_EMPRESTIMOS = "Você está no gerenciamento de Emprestimos \n";
+const string MENSAGEM_LOCAL_ATUAL_USUARIOS = "Você está no gerenciamento de usuários \n";
+const string MENSAGEM_ADEUS = "Até logo! \n";
 
-void mensagemEscolhaMenu();
-int menuLivros();
-int menuEmprestimos();
-int menuUsuarios();
-
-int escolhaMenu(string menuEscolhido);
+void exibirMensagemMenu();
+int iniciarSubmenu(string subMenu);
+void exibirMensagemSubMenuLivros();
+void exibirMensagemSubMenuEmprestimos();
+void exibirMensagemSubMenuUsuarios();
 
 int main() {
     //Menu princiapal do gerenciador de biblioteca
@@ -22,34 +22,45 @@ int main() {
     cout << "************************************************ \n";
 
     while (operacaoDesejada != "sair" && menuPrincipalAtual != 99){
-        mensagemEscolhaMenu();
+        exibirMensagemMenu();
         cin >> operacaoDesejada;
-        menuPrincipalAtual = escolhaMenu(operacaoDesejada);
 
-        switch (menuPrincipalAtual)
-        {
-        case 1:
-            menuPrincipalAtual = menuLivros();
-            break;
-        case 2:
-            menuPrincipalAtual = menuEmprestimos();
-            break;
-        case 3:
-            menuPrincipalAtual = menuUsuarios();
-            break;
-        case 99:
-            break;
-
-        default:
-            cout << "não entendi sua requisição \n";
-            break;
-        }
+        if (operacaoDesejada == "sair"){break;}
+        menuPrincipalAtual = iniciarSubmenu(operacaoDesejada);
     }
 
-    cout << mensagemAdeus;
+    cout << MENSAGEM_ADEUS;
 }
 
-void mensagemEscolhaMenu(){
+int iniciarSubmenu(string subMenu){
+    string operacaoDesejada;
+
+    while (operacaoDesejada != "voltar" && operacaoDesejada != "sair")
+    {
+        cout << "o que deseja fazer?\n";
+        cout << "Voce pode:\n";
+        if (subMenu == "1"){
+            exibirMensagemSubMenuLivros();
+        }
+        if (subMenu == "2"){
+            exibirMensagemSubMenuEmprestimos();
+        }
+        if (subMenu == "3"){
+            exibirMensagemSubMenuUsuarios();
+        }
+        cout << "Voltar. Voltar ao menu anterior \n";
+        cout << "Sair. Sair do sistema \n";
+
+        cin >> operacaoDesejada;
+    }
+
+    if (operacaoDesejada == "sair"){
+        return 99;
+    }
+    return 0;
+}
+
+void exibirMensagemMenu(){
     cout << "************************************************ \n";
     cout << "o que deseja fazer? \n";
     cout << "************************************************ \n";
@@ -59,100 +70,24 @@ void mensagemEscolhaMenu(){
     cout << "Sair. Sair do sistema \n";
 }
 
-int escolhaMenu(string menuEscolhido){
-    string operacaoDesejada;
-    int menu;
-
-    //Switch case com String não é possível sem uma engenharia adicional, portanto usarei IFs
-    if (menuEscolhido == "1"){
-        menu = 1;
-    }
-
-    if (menuEscolhido == "2"){
-        cout << localAtualEmprestimos;
-        menu = 3;
-    }
-
-    if (menuEscolhido == "3"){
-        cout << localAtualUsuarios;
-        menu = 3;
-    }
-
-    if (menuEscolhido == "sair"){
-        menu = 99;
-    }
-    return menu;
+void exibirMensagemSubMenuLivros(){
+    cout << "1. Adicionar novo livro \n";
+    cout << "2. Listar todos os livros \n";
+    cout << "3. Buscar livro \n";
+    cout << "4. Atualizar informações de um livro \n";
+    cout << "5. Definir um livro como não disponível \n";
 }
 
-int menuLivros(){
-    string operacaoDesejada;
-
-    cout << mensagemLocalAtualLivros;
-    while (operacaoDesejada != "voltar" && operacaoDesejada != "sair")
-    {
-        cout << "o que deseja fazer?\n";
-        cout << "Voce pode:\n";
-        cout << "1. Adicionar novo livro \n";
-        cout << "2. Listar todos os livros \n";
-        cout << "3. Buscar livro \n";
-        cout << "4. Atualizar informações de um livro \n";
-        cout << "5. Definir um livro como não disponível \n";
-        cout << "Voltar. Voltar ao menu anterior \n";
-        cout << "Sair. Sair do sistema \n";
-
-        cin >> operacaoDesejada;
-    }
-
-    if (operacaoDesejada == "sair"){
-        return 99;
-    }
-    return 0;
+void exibirMensagemSubMenuEmprestimos(){
+    cout << "1. Registrar um empréstimo \n";
+    cout << "2. Registrar uma devolução \n";
+    cout << "3. Mostrar todos os livros emprestados de uma pessoa \n";
+    cout << "4. Mostrar todos os empréstimos ativos \n";
 }
 
-int menuEmprestimos(){
-    string operacaoDesejada;
-
-    cout << localAtualEmprestimos;
-    while (operacaoDesejada != "voltar" && operacaoDesejada != "sair")
-    {
-        cout << "o que deseja fazer?\n";
-        cout << "Voce pode:\n";
-        cout << "1. Registrar um empréstimo \n";
-        cout << "2. Registrar uma devolução \n";
-        cout << "3. Mostrar todos os livros emprestados de uma pessoa \n";
-        cout << "4. Mostrar todos os empréstimos ativos \n";
-        cout << "Voltar. Voltar ao menu anterior \n";
-        cout << "Sair. Sair do sistema \n";
-
-
-        cin >> operacaoDesejada;
-    }
-    if (operacaoDesejada == "sair"){
-        return 99;
-    }
-    return 0;
-}
-
-int menuUsuarios(){
-    string operacaoDesejada;
-
-    cout << localAtualUsuarios;
-    while (operacaoDesejada != "voltar" && operacaoDesejada != "sair")
-    {
-        cout << "o que deseja fazer?\n";
-        cout << "Voce pode:\n";
-        cout << "1. Cadastrar um novo usuário \n";
-        cout << "2. Mostrar todos os usuários \n";
-        cout << "3. Buscar usuário \n";
-        cout << "4. Definir um usuário como inativo \n";
-        cout << "Voltar. Voltar ao menu anterior \n";
-        cout << "Sair. Sair do sistema \n";
-
-        cin >> operacaoDesejada;
-    }
-
-    if (operacaoDesejada == "sair"){
-        return 99;
-    }
-    return 0;
+void exibirMensagemSubMenuUsuarios(){
+    cout << "1. Cadastrar um novo usuário \n";
+    cout << "2. Mostrar todos os usuários \n";
+    cout << "3. Buscar um usuário \n";
+    cout << "4. Remover um usuário \n";
 }
