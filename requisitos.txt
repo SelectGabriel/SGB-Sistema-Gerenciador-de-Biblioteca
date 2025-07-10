@@ -1,0 +1,105 @@
+Requisitos do Sistema: Gerenciamento de Biblioteca
+Nome do Projeto: Sistema de Gerenciamento de Biblioteca (SGB)
+
+Objetivo: Desenvolver um aplicativo de console para gerenciar livros e usuários em uma biblioteca, explorando conceitos de C++ moderno.
+
+1. Funcionalidades Essenciais:
+1.1. Gerenciamento de Livros:
+Adicionar Novo Livro:
+
+Informações a serem registradas: Título, Autor, ISBN (International Standard Book Number), Ano de Publicação, Quantidade Disponível.
+
+Listar Todos os Livros:
+
+Exibir uma lista completa de todos os livros cadastrados, com suas informações relevantes.
+
+Buscar Livro:
+
+Permitir a busca de livros por Título ou ISBN.
+
+Atualizar Informações do Livro:
+
+Modificar qualquer informação de um livro existente (exceto o ISBN, que deve ser único).
+
+Remover Livro:
+
+Excluir um livro do sistema.
+
+Marcar Disponibilidade:
+
+Atualizar o status de um livro como "emprestado" ou "disponível" (refletindo na "Quantidade Disponível").
+
+1.2. Gerenciamento de Usuários:
+Cadastrar Novo Usuário:
+
+Informações a serem registradas: Nome, ID (identificador único do usuário), Contato (e-mail ou telefone).
+
+Listar Todos os Usuários:
+
+Exibir uma lista completa de todos os usuários cadastrados.
+
+Buscar Usuário:
+
+Permitir a busca de usuários por ID ou Nome.
+
+Remover Usuário:
+
+Excluir um usuário do sistema.
+
+1.3. Gerenciamento de Empréstimos:
+Registrar Empréstimo:
+
+Permitir que um usuário pegue um livro emprestado.
+
+Regra: Verificar a disponibilidade do livro antes de registrar o empréstimo.
+
+Associar o livro ao usuário e registrar a data do empréstimo.
+
+Registrar Devolução:
+
+Marcar um livro como devolvido.
+
+Atualizar a disponibilidade do livro.
+
+Listar Livros Emprestados por Usuário:
+
+Exibir todos os livros que um usuário específico tem emprestado.
+
+Listar Todos os Empréstimos Ativos:
+
+Mostrar todos os empréstimos que ainda não foram devolvidos.
+
+2. Conceitos de C++ a serem Aplicados:
+Programação Orientada a Objetos (POO):
+
+Criação e uso de classes (Livro, Usuario, Emprestimo).
+
+Definição de atributos (membros de dados) e métodos (funções membro).
+
+Uso de construtores para inicializar objetos.
+
+Aplicação de encapsulamento (membros private e métodos public).
+
+Biblioteca Padrão C++ (STL - Standard Template Library):
+
+std::vector: Para armazenar coleções de objetos (e.g., std::vector<Livro>, std::vector<Usuario>).
+
+std::string: Para manipulação de texto (títulos, nomes, etc.) de forma segura e eficiente.
+
+std::map / std::unordered_map: (Opcional, mas recomendado) Para buscas eficientes de objetos por chaves únicas (e.g., buscar livro por ISBN).
+
+Fluxos de Entrada/Saída (iostream):
+
+Uso de std::cout para exibir informações no console.
+
+Uso de std::cin para receber entrada do usuário.
+
+Gerenciamento de Memória:
+
+Inicialmente, o STL gerenciará a maior parte.
+
+(Opcional, para aprofundamento) Explorar ponteiros inteligentes (std::unique_ptr, std::shared_ptr) para gerenciamento automático de memória, se a complexidade do projeto exigir.
+
+Sobrecarga de Operadores: (Opcional)
+
+Sobrecarga do operador << para facilitar a impressão de objetos personalizados no console.
