@@ -47,8 +47,8 @@ const map<int, subMenuStruct> SUB_MENUS = {
 
 //funcoes
 void exibirMensagemMenu();
-int iniciarSubmenu(string subMenu);
-subMenuStruct carregarSubMenu(string subMenu);
+int iniciarSubmenu(const string& subMenu);
+subMenuStruct carregarSubMenu(const string& subMenu);
 
 int main() {
     //Menu princiapal do gerenciador de biblioteca
@@ -69,7 +69,7 @@ int main() {
     cout << MENSAGEM_ADEUS;
 }
 
-int iniciarSubmenu(string subMenu){
+int iniciarSubmenu(const string& subMenu){
     string operacaoDesejada;
     subMenuStruct subMenuCarregado;
 
@@ -81,8 +81,8 @@ int iniciarSubmenu(string subMenu){
     {
         cout << "o que deseja fazer?\n";
         cout << "Voce pode:\n";
-        for (string car : subMenuCarregado.opcoes) {
-            cout << car << "\n";
+        for (const string& opcoes : subMenuCarregado.opcoes) {
+            cout << opcoes << "\n";
         }
         cout << "Voltar. ao menu anterior \n";
         cout << "Sair. do sistema \n";
@@ -96,13 +96,12 @@ int iniciarSubmenu(string subMenu){
     return 0;
 }
 
-subMenuStruct carregarSubMenu(string subMenu){
+subMenuStruct carregarSubMenu(const string& subMenu){
     subMenuStruct subMenuCarregado; 
     int subMenuInt;
     try {
         subMenuInt = stoi(subMenu);
-        subMenuCarregado = SUB_MENUS.at(subMenuInt);
-        return subMenuCarregado;
+        return SUB_MENUS.at(subMenuInt);
     } catch (const std::invalid_argument& e) {
         subMenuCarregado = subMenuStruct{};
         return subMenuCarregado;
@@ -110,9 +109,6 @@ subMenuStruct carregarSubMenu(string subMenu){
         subMenuCarregado = subMenuStruct{};
         return subMenuCarregado;
     }
-
-    subMenuCarregado = subMenuStruct{};
-    return subMenuCarregado;
 }
 
 void exibirMensagemMenu(){
