@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#include <vector>
 #include <string>
 #include <map>
 using namespace std;
@@ -8,7 +8,7 @@ using namespace std;
 struct subMenuStruct{
     string nome;
     string mensagem;
-    list<string> opcoes;
+    vector<string> opcoes;
 };
 
 //mensagens
@@ -18,20 +18,20 @@ const string MENSAGEM_LOCAL_ATUAL_USUARIOS = "Você está no gerenciamento de us
 const string MENSAGEM_ADEUS = "Até logo! \n";
 
 //opções dos menus
-list<string> OPCOES_SUB_MENU_LIVROS = {
+const vector<string> OPCOES_SUB_MENU_LIVROS = {
     "1. Adicionar novo livro",
     "2. Mostrar todos os livros",
     "3. Buscar livro",
     "4. Atualizar informações de um livro",
     "5. Definir um livro como não disponível"
 };
-list<string> OPCOES_SUB_MENU_EMPRESTIMOS = {
+const vector<string> OPCOES_SUB_MENU_EMPRESTIMOS = {
     "1. Registrar um empréstimo",
     "2. Registrar uma devolução",
     "3. Mostrar todos os livros emprestados de uma pessoa",
     "4. Mostrar todos os empréstimos ativos",
 };
-list<string> OPCOES_SUB_MENU_USUARIOS = {
+const vector<string> OPCOES_SUB_MENU_USUARIOS = {
     "1. Cadastrar um novo usuário",
     "2. Mostrar todos os usuários",
     "3. Buscar um usuário",
@@ -39,7 +39,7 @@ list<string> OPCOES_SUB_MENU_USUARIOS = {
 };
 
 //menus
-map<int, subMenuStruct> SUB_MENUS = {
+const map<int, subMenuStruct> SUB_MENUS = {
     {1, {"Livros", MENSAGEM_LOCAL_ATUAL_LIVROS, OPCOES_SUB_MENU_LIVROS}},
     {2, {"Emprestimos", MENSAGEM_LOCAL_ATUAL_EMPRESTIMOS, OPCOES_SUB_MENU_EMPRESTIMOS}},
     {3, {"Usuarios", MENSAGEM_LOCAL_ATUAL_USUARIOS, OPCOES_SUB_MENU_USUARIOS}},
@@ -101,7 +101,7 @@ subMenuStruct carregarSubMenu(string subMenu){
     int subMenuInt;
     try {
         subMenuInt = stoi(subMenu);
-        subMenuCarregado = SUB_MENUS[subMenuInt];
+        subMenuCarregado = SUB_MENUS.at(subMenuInt);
         return subMenuCarregado;
     } catch (const std::invalid_argument& e) {
         subMenuCarregado = subMenuStruct{};
