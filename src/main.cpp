@@ -1,7 +1,15 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <map>
 using namespace std;
+
+//structs
+struct subMenuStruct{
+    string nome;
+    string mensagem;
+    list<string> opcoes;
+};
 
 //mensagens
 const string MENSAGEM_LOCAL_ATUAL_LIVROS = "Você está no gerenciamento de Livros \n";
@@ -17,14 +25,12 @@ list<string> OPCOES_SUB_MENU_LIVROS = {
     "4. Atualizar informações de um livro",
     "5. Definir um livro como não disponível"
 };
-
 list<string> OPCOES_SUB_MENU_EMPRESTIMOS = {
     "1. Registrar um empréstimo",
     "2. Registrar uma devolução",
     "3. Mostrar todos os livros emprestados de uma pessoa",
     "4. Mostrar todos os empréstimos ativos",
 };
-
 list<string> OPCOES_SUB_MENU_USUARIOS = {
     "1. Cadastrar um novo usuário",
     "2. Mostrar todos os usuários",
@@ -32,11 +38,11 @@ list<string> OPCOES_SUB_MENU_USUARIOS = {
     "4. Inativar um usuário",
 };
 
-//structs
-struct subMenuStruct{
-    int identificador;
-    string mensagem;
-    list<string> opcoes;
+//menus
+map<int, subMenuStruct> SUB_MENUS = {
+    {1, {"Livros", MENSAGEM_LOCAL_ATUAL_LIVROS, OPCOES_SUB_MENU_LIVROS}},
+    {2, {"Emprestimos", MENSAGEM_LOCAL_ATUAL_EMPRESTIMOS, OPCOES_SUB_MENU_EMPRESTIMOS}},
+    {3, {"Usuarios", MENSAGEM_LOCAL_ATUAL_USUARIOS, OPCOES_SUB_MENU_USUARIOS}},
 };
 
 //funcoes
@@ -68,7 +74,9 @@ int iniciarSubmenu(string subMenu){
     subMenuStruct subMenuCarregado;
 
     subMenuCarregado = carregarSubMenu(subMenu);
+    if (subMenuCarregado.nome == ""){return 0;} //exibe as opções novamente;
     cout << subMenuCarregado.mensagem;
+
     while (operacaoDesejada != "voltar" && operacaoDesejada != "sair")
     {
         cout << "o que deseja fazer?\n";
@@ -90,25 +98,20 @@ int iniciarSubmenu(string subMenu){
 
 subMenuStruct carregarSubMenu(string subMenu){
     subMenuStruct subMenuCarregado; 
+    int subMenuInt;
+    try {
+        subMenuInt = stoi(subMenu);
+        subMenuCarregado = SUB_MENUS[subMenuInt];
+        return subMenuCarregado;
+    } catch (const std::invalid_argument& e) {
+        subMenuCarregado = subMenuStruct{};
+        return subMenuCarregado;
+    } catch (const std::out_of_range& e) {
+        subMenuCarregado = subMenuStruct{};
+        return subMenuCarregado;
+    }
 
-    if (subMenu == "1"){
-        subMenuCarregado.identificador = 1;
-        subMenuCarregado.mensagem = MENSAGEM_LOCAL_ATUAL_LIVROS;
-        subMenuCarregado.opcoes = OPCOES_SUB_MENU_LIVROS;
-        return subMenuCarregado;
-    }
-    if (subMenu == "2"){
-        subMenuCarregado.identificador = 2;
-        subMenuCarregado.mensagem = MENSAGEM_LOCAL_ATUAL_EMPRESTIMOS;
-        subMenuCarregado.opcoes = OPCOES_SUB_MENU_EMPRESTIMOS;
-        return subMenuCarregado;
-    }
-    if (subMenu == "3"){
-        subMenuCarregado.identificador = 3;
-        subMenuCarregado.opcoes = OPCOES_SUB_MENU_USUARIOS;
-        return subMenuCarregado;
-    }
-    subMenuCarregado.identificador = 99;
+    subMenuCarregado = subMenuStruct{};
     return subMenuCarregado;
 }
 
@@ -119,4 +122,5 @@ void exibirMensagemMenu(){
     cout << "1. Gerenciar livros \n";
     cout << "2. Gerenciar emprestimos \n";
     cout << "3. Gerenciar usuários \n";
+    cout << "************************************************ \n";
 }
