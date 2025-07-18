@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include "classes/Livro.h"
 using namespace std;
 
 //structs
@@ -72,22 +73,40 @@ int main() {
 int iniciarSubmenu(const string& subMenu){
     string operacaoDesejada;
     subMenuStruct subMenuCarregado;
+    Livro livro("LIVRO","1233123213","12/12/2012","132312312",0);
 
     subMenuCarregado = carregarSubMenu(subMenu);
     if (subMenuCarregado.nome == ""){return 0;} //exibe as opções novamente;
     cout << subMenuCarregado.mensagem;
 
-    while (operacaoDesejada != "voltar" && operacaoDesejada != "sair")
-    {
+    //Lambda ftw
+    auto message = [](subMenuStruct& subMenuCarregado,
+         std::string operacaoDesejada) {
         cout << "o que deseja fazer?\n";
-        cout << "Voce pode:\n";
+        cout << "voce pode:\n";
         for (const string& opcoes : subMenuCarregado.opcoes) {
             cout << opcoes << "\n";
         }
-        cout << "Voltar. ao menu anterior \n";
-        cout << "Sair. do sistema \n";
+        cout << "voltar. ao menu anterior \n";
+        cout << "sair. do sistema \n";
+    };
+    message(subMenuCarregado, operacaoDesejada);
+    while (operacaoDesejada != "voltar" && operacaoDesejada != "sair")
+    {
+        // if(operacaoDesejada == "0"){
+        //     message(subMenuCarregado, operacaoDesejada);
+        // }
 
         cin >> operacaoDesejada;
+
+        if (subMenuCarregado.nome == "Livros" && operacaoDesejada == "2"){
+            cout << livro.getTitulo() + "\n";
+            cout << livro.getAutor() + "\n";
+            cout << livro.getIsbn() + "\n";
+            cout << livro.getAnoDePublicacao() + "\n";
+            cout << livro.getQuantidadeDisponivel();
+            cout << "\n";
+        }
     }
 
     if (operacaoDesejada == "sair"){
