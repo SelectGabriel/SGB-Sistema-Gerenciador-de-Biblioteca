@@ -74,11 +74,6 @@ int iniciarSubmenu(const string& subMenu){
     string operacaoDesejada;
     subMenuStruct subMenuCarregado;
     Livro livro("LIVRO","1233123213","12/12/2012","132312312",0);
-
-    subMenuCarregado = carregarSubMenu(subMenu);
-    if (subMenuCarregado.nome == ""){return 0;} //exibe as opções novamente;
-    cout << subMenuCarregado.mensagem;
-
     //Lambda ftw
     auto message = [](subMenuStruct& subMenuCarregado,
          std::string operacaoDesejada) {
@@ -90,7 +85,13 @@ int iniciarSubmenu(const string& subMenu){
         cout << "voltar. ao menu anterior \n";
         cout << "sair. do sistema \n";
     };
+
+    subMenuCarregado = carregarSubMenu(subMenu);
+    if (subMenuCarregado.nome == ""){return 0;} //exibe as opções novamente;
+    cout << subMenuCarregado.mensagem;
+
     message(subMenuCarregado, operacaoDesejada);
+
     while (operacaoDesejada != "voltar" && operacaoDesejada != "sair")
     {
         // if(operacaoDesejada == "0"){
@@ -98,15 +99,6 @@ int iniciarSubmenu(const string& subMenu){
         // }
 
         cin >> operacaoDesejada;
-
-        if (subMenuCarregado.nome == "Livros" && operacaoDesejada == "2"){
-            cout << livro.getTitulo() + "\n";
-            cout << livro.getAutor() + "\n";
-            cout << livro.getIsbn() + "\n";
-            cout << livro.getAnoDePublicacao() + "\n";
-            cout << livro.getQuantidadeDisponivel();
-            cout << "\n";
-        }
     }
 
     if (operacaoDesejada == "sair"){
