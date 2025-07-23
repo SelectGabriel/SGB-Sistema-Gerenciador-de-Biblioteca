@@ -6,9 +6,9 @@
 #include <string>
 
 void exibirTodosOsLivros(int pagina){}
-std::vector<Livro> pesquisarLivros(std::string titulo, std::string isbn){}
-Livro editarLivro(std::string isbn, Livro livroEditado){}
-void removerLivro(std::string isbn){}
-std::string exibirDisponibilidadeDoLivro(std::string isbn){}
+void exibirLivrosFiltrados(std::string titulo, std::string isbn){}
+void enviarLivroParaEdicao(Livro livroEditado){}
+void enviarLivroParaRemocao(std::string isbn){}
+void exibirDisponibilidadeDoLivro(std::string isbn){}
 
 #endif
