@@ -2,6 +2,8 @@
 #define USUARIOS_HANDLER_H
 #pragma once
 
-int handleUsuarios();
+#include "facades/UsuarioFacade.h"
 
-#endif // USUARIOS_HANDLER_H
+int handleUsuarios(UsuarioFacade& facade);
+
+#endif

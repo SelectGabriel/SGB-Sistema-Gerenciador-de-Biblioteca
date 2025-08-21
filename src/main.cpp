@@ -22,6 +22,7 @@ int main(){
     cout << "************************************************ \n";
 
     LivroFacade livroFacade;
+    UsuarioFacade usuarioFacade;
 
     string operacaoDesejada;
     int menuPrincipalAtual = 0;
@@ -42,7 +43,7 @@ int main(){
                 menuPrincipalAtual = handleEmprestimos();
                 break;
             case 3:
-                menuPrincipalAtual = handleUsuarios();
+                menuPrincipalAtual = handleUsuarios(usuarioFacade);
                 break;
             default:
                 cout << "Opção inválida. Tente novamente.\n";
