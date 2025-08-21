@@ -5,14 +5,13 @@ Livro::Livro() {
     
 }
 
-Livro::Livro(std::string titulo, std::string autor, std::string isbn, std::string anoDePublicacao, int quantidadeDisponivel)
-{
-    this->setTitulo(titulo);
-    this->setIsbn(isbn);
-    this->setAutor(autor);
-    this->setAnoDePublicacao(anoDePublicacao);
-    this->setQuantidadeDisponivel(quantidadeDisponivel);
-}
+Livro::Livro(std::string titulo, std::string autor, std::string isbn,
+             std::string anoDePublicacao, int quantidadeDisponivel)
+    : titulo(std::move(titulo)),
+      autor(std::move(autor)),
+      isbn(std::move(isbn)),
+      anoDePublicacao(std::move(anoDePublicacao)),
+      quantidadeDisponivel(quantidadeDisponivel) {}
 
 std::string Livro::getTitulo() const
 {

@@ -13,7 +13,7 @@ private:
 
 public:
     Livro(std::string titulo, std::string autor, std::string isbn,
-         std::string AnoDePublicacao, int quantidadeDisponivel);
+         std::string anoDePublicacao, int quantidadeDisponivel);
 
     Livro();
 
