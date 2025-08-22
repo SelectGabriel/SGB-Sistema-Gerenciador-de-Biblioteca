@@ -15,16 +15,13 @@ std::vector<Emprestimo> EmprestimoFacade::listarPorUsuario(int usuarioId, bool a
 std::optional<Emprestimo> EmprestimoFacade::buscarPorId(int id) const { return repository.findById(id); }
 
 int EmprestimoFacade::registrarEmprestimo(int usuarioId, const std::string& isbn, const std::string& dataDevolucaoPrevista) {
-    // 1) valida usuário
     auto u = usuarioFacade.buscarPorId(usuarioId);
     if (!u || !u->isAtivo()) return -1;
 
-    // 2) valida livro e estoque
     auto l = livroFacade.buscarPorIsbn(isbn);
     if (!l) return -1;
     if (l->getQuantidadeDisponivel() <= 0) return -1;
 
-    // 3) decrementa estoque do livro
     auto livro = *l;
     livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() - 1);
     if (!livroFacade.atualizarLivro(isbn, livro)) return -1;
@@ -38,18 +35,15 @@ int EmprestimoFacade::registrarEmprestimo(int usuarioId, const std::string& isbn
 }
 
 bool EmprestimoFacade::registrarDevolucao(int emprestimoId, const std::string& dataDevolucaoReal) {
-    // 1) acha o empréstimo
     auto e = repository.findById(emprestimoId);
     if (!e || !e->isAtivo()) return false;
 
-    // 2) incrementa estoque do livro
     auto l = livroFacade.buscarPorIsbn(e->getIsbn());
     if (!l) return false; // livro sumiu? inconsistente
     auto livro = *l;
     livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() + 1);
     if (!livroFacade.atualizarLivro(e->getIsbn(), livro)) return false;
 
-    // 3) marca devolvido
     return repository.marcarDevolvido(emprestimoId, dataDevolucaoReal);
 }
 

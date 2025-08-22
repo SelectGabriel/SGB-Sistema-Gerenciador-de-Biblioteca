@@ -6,13 +6,13 @@
 
 class Emprestimo {
 private:
-    int id;                           // gerado no repositório
-    int usuarioId;                    // referência ao usuário
-    std::string isbn;                 // referência ao livro
-    std::string dataEmprestimo;       // YYYY-MM-DD
-    std::string dataDevolucaoPrevista;// YYYY-MM-DD
-    std::string dataDevolucaoReal;    // vazio se não devolvido
-    bool ativo;                       // true enquanto não devolvido
+    int id;
+    int usuarioId;
+    std::string isbn;
+    std::string dataEmprestimo;//YYYY-MM-DD
+    std::string dataDevolucaoPrevista;//YYYY-MM-DD
+    std::string dataDevolucaoReal;
+    bool ativo;
 
 public:
     Emprestimo();
