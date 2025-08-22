@@ -2,6 +2,8 @@
 #define EMPRESTIMOS_HANDLER_H
 #pragma once
 
-int handleEmprestimos();
+#include "../facades/EmprestimoFacade.h"
+
+int handleEmprestimos(EmprestimoFacade& facade);
 
 #endif

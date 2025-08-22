@@ -7,10 +7,12 @@
 
 using namespace std;
 
-static inline int leiaOpcaoInt(){
-    string s; 
-    if (!(cin >> s)) return -1;
-    try { return stoi(s); } catch (...) { return -1; }
+static inline int leiaOpcao() {
+    std::string s;
+    if (!(std::cin >> s)) return -1;
+    if (s == "sair")   return 99;
+    if (s == "voltar") return 0;
+    try { return std::stoi(s); } catch (...) { return -1; }
 }
 
 static const string MENSAGEM_LOCAL_ATUAL_LIVROS = "Você está no gerenciamento de Livros \n";
@@ -30,7 +32,7 @@ int handleLivros(LivroFacade& facade){
 
     while (true){
         cout << "\nEscolha: ";
-        int opc = leiaOpcaoInt();
+        int opc = leiaOpcao();
 
         switch (opc){
             case 0:  return 0;   // voltar

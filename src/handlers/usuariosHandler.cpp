@@ -6,10 +6,12 @@
 
 using namespace std;
 
-static inline int leiaOpcaoInt(){
-    string s; 
-    if (!(cin >> s)) return -1;
-    try { return stoi(s); } catch (...) { return -1; }
+static inline int leiaOpcao() {
+    std::string s;
+    if (!(std::cin >> s)) return -1;
+    if (s == "sair")   return 99;
+    if (s == "voltar") return 0;
+    try { return std::stoi(s); } catch (...) { return -1; }
 }
 
 static const string MENSAGEM_LOCAL_ATUAL_USUARIOS = "Você está no gerenciamento de usuários \n";
@@ -28,7 +30,7 @@ int handleUsuarios(UsuarioFacade& facade){
 
     while (true){
         cout << "\nEscolha: ";
-        int opc = leiaOpcaoInt();
+        int opc = leiaOpcao();
 
         switch (opc){
             case 0:  return 0;
@@ -60,7 +62,7 @@ int handleUsuarios(UsuarioFacade& facade){
 
             case 3: { // buscar por ID
                 cout << "ID: ";
-                int id = leiaOpcaoInt();
+                int id = leiaOpcao();
                 auto u = facade.buscarPorId(id);
                 if (u){
                     cout << "#"<< u->getId() 
@@ -76,7 +78,7 @@ int handleUsuarios(UsuarioFacade& facade){
 
             case 4: { // inativar
                 cout << "ID a inativar: ";
-                int id = leiaOpcaoInt();
+                int id = leiaOpcao();
                 bool ok = facade.inativarUsuario(id);
                 cout << (ok ? "Usuário inativado.\n" : "ID não encontrado.\n");
                 break;
@@ -84,7 +86,7 @@ int handleUsuarios(UsuarioFacade& facade){
 
             case 5: { // atualizar
                 cout << "ID a atualizar: ";
-                int id = leiaOpcaoInt();
+                int id = leiaOpcao();
                 auto u = facade.buscarPorId(id);
                 if (!u){ cout << "ID não encontrado.\n"; break; }
 

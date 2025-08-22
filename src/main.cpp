@@ -23,6 +23,7 @@ int main(){
 
     LivroFacade livroFacade;
     UsuarioFacade usuarioFacade;
+    EmprestimoFacade emprestimoFacade(usuarioFacade, livroFacade);
 
     string operacaoDesejada;
     int menuPrincipalAtual = 0;
@@ -40,7 +41,7 @@ int main(){
                 menuPrincipalAtual = handleLivros(livroFacade);
                 break;
             case 2:
-                menuPrincipalAtual = handleEmprestimos();
+                menuPrincipalAtual = handleEmprestimos(emprestimoFacade);
                 break;
             case 3:
                 menuPrincipalAtual = handleUsuarios(usuarioFacade);
